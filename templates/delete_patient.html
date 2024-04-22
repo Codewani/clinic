@@ -9,11 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center">Confirm Deletion</h5>
-                    <p>Are you sure you want to delete the patient with ID: {{ patient.patient_id }}?</p>
+                    <p>Are you sure you want to delete the patient with ID: {{ patient_id }}?</p>
                     <form action="" method="post">
                         <div class="text-center">
                             <button type="submit" class="btn btn-danger">Delete</button>
-                            <a href="{% url 'viewpatients' %}" class="btn btn-secondary">Cancel</a>
+                            <a href="/viewPatients" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>

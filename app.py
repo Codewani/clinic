@@ -113,7 +113,26 @@ def editward(ward_id):
         return redirect("/viewWards")
     return render_template("editward.html", ward = ward)
 
-    
+@app.route("/deletepatient/<string:patient_id>", methods=['GET', 'POST'])
+def deletepatient(patient_id):
+    cur = db.connection.cursor()
+    if request.method == 'POST':
+        cur.execute("DELETE from patient WHERE patient_id = %s", (patient_id, ))
+        db.connection.commit()
+        cur.close
+        return redirect("/viewPatients")
+    return render_template("delete_patient.html", patient_id = patient_id)
+
+@app.route("/deleteward/<string:ward_id>", methods=['GET', 'POST'])
+def deleteward(ward_id):
+    cur = db.connection.cursor()
+    if request.method == 'POST':
+        cur.execute("DELETE from ward WHERE ward_id = %s", (ward_id, ))
+        db.connection.commit()
+        cur.close
+        return redirect("/viewWards")
+    return render_template("delete_ward.html", ward_id = ward_id)
+
 @app.route("/login")
 def login():
     return render_template("authenticate/login.html")
