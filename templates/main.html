@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block styling %}
+<style>
+    /* Custom styles for the background image */
+    .hospital-bg {
+        background-image: url('https://www.uregina.ca/wellness-centre/assets/img/promotion/health-information.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+    /* Style for the jumbotron (optional) */
+    .jumbotron {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+    /* Style for the links */
+    .card-container {
+        background: rgba(255, 255, 255, 0.5); /* Transparent white background */
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin: 20% auto; /* Adjust to center the card vertically */
+        max-width: 400px;
+    }
+    /* Reduce margin between navbar and content */
+    .navbar {
+        margin-bottom: 0; /* Remove the default margin */
+    }
+
+/* If needed, adjust the top padding for the content */
+    .container {
+        padding-top: 20px; /* You can adjust the value as needed */
+    }
+
+        /* Style for the buttons */
+    .btn-link {
+        margin: 10px;
+        color: white; /* White text color */
+    }
+</style>
+{% endblock styling %}
+
+{% block page_content %}
+<body>
+<!-- Background image container -->
+<div class="hospital-bg">
+    <div class="container">
+        <!-- Jumbotron with welcome message -->
+        <div class="card-container">
+        <!-- Jumbotron with welcome message -->
+                <div>
+                    <h1 class="display-4">Welcome to Our Hospital</h1>
+                    <p class="lead">Your trusted healthcare partner.</p>
+                </div>
+                <!-- Links to internal pages -->
+                <div class="text-center">
+                    <a href="/patient/" class="btn btn-primary btn-lg btn-link">Enter Patients</a>
+                    <a href="/viewpatients/" class="btn btn-success btn-lg btn-link">View Patients</a>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
