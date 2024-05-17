@@ -5,9 +5,12 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
+f = open("C:\\Users\hp elitebook\password.txt", "r")
+password = f.read()
+
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = "Wongani1234@"
+app.config['MYSQL_PASSWORD'] = password
 app.config['MYSQL_DB'] = "hospital"
 #The line below ensures that the fetchall function returns a dictionary instead of a list
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
@@ -83,7 +86,7 @@ def viewPatients():
 
 @app.route("/viewWards")
 def viewWards():
-    wardDetails = fetch("SELECT * FROM ward")
+    wardDetails = fetch("SELECT * FROM ward", "all")
     return render_template('viewward.html', wards=wardDetails)
 
 @app.route("/editpatient/<string:patient_id>", methods=['GET', 'POST'])
