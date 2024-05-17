@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 f = open("C:\\Users\hp elitebook\password.txt", "r")
 password = f.read()
+f.close()
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
