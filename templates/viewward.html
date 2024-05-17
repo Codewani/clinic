@@ -19,7 +19,7 @@
                 {% for ward in wards %}
                 <tr>
                     <td>
-                        <a href="#">{{ ward.ward_id }}</a>
+                        <a href="/wardPatients/{{ ward.ward_id }}">{{ ward.ward_id }}</a>
                     </td>
                     <td>{{ ward.ward_name }}</td>
                     <td>{{ ward.number_beds }}</td>
