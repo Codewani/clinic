@@ -166,7 +166,7 @@ def register():
 
         execute("INSERT INTO users (employeeId, FirstName, LastName, sex, address, postCode, DOB, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", employee_id, FirstName, LastName, sex, address, post_code, DOB, email, password)
         return redirect("/login")
-    return render_template("authenticate/register.html", passwordErrorv= passwordError)
+    return render_template("authenticate/register.html", passwordError = passwordError)
 @app.route("/login")
 def login():
     return render_template("authenticate/login.html")
