@@ -19,16 +19,28 @@ db = MySQL(app)
 
 #A function that allows me to open the mySQL cursor, execute a command(INSERT, DELETE or UPDATE) and commit the changes instead of repeating the same code
 def execute(command, *args):
+    #Command: could be "INSERT INTO table (field_1, field_2, field_3) VALUES (%s, %s, %s)"
+    #args: is the data that is supposed to go into the place holders "%s".
     fields = list()
     for field in args:
         fields.append(field)
     cur = db.connection.cursor()
+    #check if the fields list is empty
     if fields:
         cur.execute(command, fields)
     else:
         cur.execute(command)
     db.connection.commit()
     cur.close
+#Allows me to fetch data from a query request.
+def fetch(command, type):
+    cur = db.connection.cursor()
+    patients = cur.execute(command)
+    data = cur.fetchall()
+    cur.close
+    if type == "all":
+        return data
+    return data[0]
 
 @app.route("/")
 def hello_world():
@@ -66,20 +78,13 @@ def patients():
 
 @app.route("/viewPatients")
 def viewPatients():
-    cur = db.connection.cursor()
-    patients = cur.execute("SELECT * FROM patient")
-    if patients > 0:
-        patientDetails = cur.fetchall()
-        return render_template('viewpatients.html', patients=patientDetails)
+    patientDetails = fetch("SELECT * FROM patient", "all")
+    return render_template('viewpatients.html', patients=patientDetails)
 
 @app.route("/viewWards")
 def viewWards():
-    cur = db.connection.cursor()
-    wards = cur.execute("SELECT * FROM ward")
-    
-    if wards > 0:
-        wardDetails = cur.fetchall()
-        return render_template('viewward.html', wards=wardDetails)
+    wardDetails = fetch("SELECT * FROM ward")
+    return render_template('viewward.html', wards=wardDetails)
 
 @app.route("/editpatient/<string:patient_id>", methods=['GET', 'POST'])
 def editpatient(patient_id):
