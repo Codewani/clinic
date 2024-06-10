@@ -46,9 +46,43 @@ def fetch(command, type):
         return data
     return data[0]
 
+
+@app.route("/login", methods = ["GET", "POST"])
+def login():
+    global loggedin
+    if request.method == 'POST':
+        employee_id = request.form['employee_id']
+        password    = request.form['password']
+
+        cur = db.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE employeeID = %s and password = %s", [employee_id, password])
+        user = cur.fetchone()
+        if user:
+            session.permanent = True
+            session["loggedin"]   = True
+            session["employeeID"] = user["employeeID"]
+            session["firstName"]  = user["firstName"]
+            session["lastName"]   = user["lastName"]
+            session["email"]      = user["email"]
+
+            loggedin  = session["loggedin"]
+            empID     = session["employeeID"]
+            firstName = session["firstName"]
+            lastName  = session["lastName"]
+
+            return redirect("/")
+    
+        else:
+            message = "Your Employee ID or Password is incorrect."
+            return render_template("authenticate/login.html", message = message)
+
+    return render_template("authenticate/login.html")
+
 @app.route("/")
 def hello_world():
-    return render_template("main.html")
+    if not session.get("loggedin", False):
+        return redirect("/login")
+    return render_template("main.html", message = session["firstName"])
 
 @app.route("/ward", methods=['GET', 'POST'])
 def ward():
@@ -176,9 +210,9 @@ def register():
         execute("INSERT INTO users (employeeId, FirstName, LastName, sex, address, postCode, DOB, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", employee_id, FirstName, LastName, sex, address, post_code, DOB, email, password)
         return redirect("/login")
     return render_template("authenticate/register.html", passwordError = passwordError)
-@app.route("/login")
-def login():
-    return render_template("authenticate/login.html")
 
-
-
+@app.route("/logout", methods = ["GET", "POST"])
+def logout():
+    session.clear()
+    loggedin = False
+    return redirect("/")
