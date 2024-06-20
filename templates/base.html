@@ -33,41 +33,6 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-      $(document).ready(function() {
-    var table = $('#example').DataTable();
-
-    // Handle update button click
-    $('#example').on('click', '.update-patient', function() {
-        var patientId = $(this).data('patient_id');
-        // Show a modal for updating patient information, pre-fill the form with patient data, and submit it to the Django view.
-        // You can use AJAX to submit the form asynchronously.
-    });
-
-    // Handle delete button click
-    $('#example').on('click', '.delete-patient', function() {
-        var patientId = $(this).data('patient_id');
-        if (confirm('Are you sure you want to delete this patient?')) {
-            // Send an AJAX request to the Django view for deleting patients.
-            $.ajax({
-                url: '/delete_patient/' + patientId + '/', // Replace with your actual URL
-                type: 'POST',
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function(data) {
-                    // Handle success (e.g., remove the row from the table)
-                    table.row($(this).parents('tr')).remove().draw();
-                },
-                error: function() {
-                    // Handle error
-                    alert('An error occurred while deleting the patient.');
-                }
-            });
-        }
-    });
-});
-    </script>
     {% block scripts %}
     {% endblock scripts %}
   </body>

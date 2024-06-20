@@ -73,8 +73,8 @@ def login():
             return redirect("/")
     
         else:
-            message = "Your Employee ID or Password is incorrect."
-            return render_template("authenticate/login.html", message = message)
+            error = True
+            return render_template("authenticate/login.html", error = error)
 
     return render_template("authenticate/login.html")
 

@@ -7,37 +7,39 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto"> <!-- ml-auto pushes links to the far left -->
-            <li class="nav-item dropdown px-4">
-                <a class="nav-link dropdown-toggle" href="#" id="enterRecordsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Enter Records
-                </a>
-                <div class="dropdown-menu" aria-labelledby="enterRecordsDropdown">
-                    <a class="dropdown-item" href="/patients">Patient</a>
-                    <a class="dropdown-item" href="/ward">Ward</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown px-4">
-                <a class="nav-link dropdown-toggle" href="#" id="viewRecordsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    View Records
-                </a>
-                <div class="dropdown-menu" aria-labelledby="viewRecordsDropdown">
-                    <a class="dropdown-item" href="/viewPatients">Patient</a>
-                    <a class="dropdown-item" href="/viewWards">Ward</a>
-                </div>
-            </li>
+            {% if session.get("loggedin", False) %}
+                <li class="nav-item dropdown px-4">
+                    <a class="nav-link dropdown-toggle" href="#" id="enterRecordsDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Enter Records
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="enterRecordsDropdown">
+                        <a class="dropdown-item" href="/patients">Patient</a>
+                        <a class="dropdown-item" href="/ward">Ward</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown px-4">
+                    <a class="nav-link dropdown-toggle" href="#" id="viewRecordsDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View Records
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="viewRecordsDropdown">
+                        <a class="dropdown-item" href="/viewPatients">Patient</a>
+                        <a class="dropdown-item" href="/viewWards">Ward</a>
+                    </div>
+                </li>
+            {% endif %}
             <li class="nav-item px-4">
                 <a class="nav-link" href="#">About</a>
             </li>
             {% if not session.get("loggedin", False) %}
-            <li class="nav-item px-4">
-                <a class="nav-link" href="/login">Sign In</a>
-            </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link" href="/login">Sign In</a>
+                </li>
             {% else %}
-            <li class="nav-item px-4">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
             {% endif %}
         </ul>
     </div>

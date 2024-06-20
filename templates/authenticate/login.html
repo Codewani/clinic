@@ -10,6 +10,9 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                    {% if error %}
+                        <h5 style="color:red">Your Employee ID or Password was incorrect.</h3>
+                    {% endif %}
                     <h5 class="card-title text-center">Login</h5>
                     <form action="" method="POST" autocomplete="off">
                         <div class="form-group">
@@ -20,7 +23,6 @@
                             <label for="password">Password</label>
                             <input type="password" id="password" class="form-control" name="password" placeholder="Password" autocomplete="off" />
                         </div>
-                        <input type="text" style="display:none" autocomplete="new-password" />
                         <label for="exampleInputPassword1">Don't have an account? <a href="/register">Sign Up</a> Here</label>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>                    
